@@ -3,6 +3,6 @@ from wsgi_fw.pages import BasePage
 
 pages = [
     BasePage('', home_view),
-    BasePage('products/', contacts_view),
-    BasePage('contacts/', products_view)
+    BasePage('products/', products_view),
+    BasePage('contacts/', contacts_view)
 ]

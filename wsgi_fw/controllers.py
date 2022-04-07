@@ -11,11 +11,12 @@ class FrontController:
         request = RequestHandler(environ)
 
         for page in self.pages:
-            if check_view(page.view, request.path):
+            if check_view(page, request.path):
                 start_response('200 OK', [('Content-Type', 'text/html; charset=utf-8')])
                 page_content = render(page.view.template,
                                       page.view.content) if page.view.content else page.view.template
                 page.view.request = request
+                page.view.get_request()
 
                 return [page_content.encode()]
         else:
@@ -29,7 +30,7 @@ class PageController:
         self.page = page
 
     def __call__(self, environ, start_response):
-        if check_view(self.page.view, environ['PATH_INFO']):
+        if check_view(self.page, environ['PATH_INFO']):
             start_response('200 OK', [('Content-Type', 'text/html; charset=utf-8')])
             page_content = self.page.view.template
 

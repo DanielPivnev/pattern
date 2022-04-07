@@ -12,8 +12,8 @@ def render(template_name, content):
     return template.render(**content)
 
 
-def check_view(view, path):
-    if path.lower() == '/' + view.path or path.lower() + '/' == '/' + view.path:
+def check_view(page, path):
+    if path.lower() == '/' + page.path or path.lower() + '/' == '/' + page.path:
         return True
     else:
         return False
