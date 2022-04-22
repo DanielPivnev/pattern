@@ -7,3 +7,4 @@ from wsgi_fw.views import BaseView
 class BasePage:
     path: str
     view: BaseView
+# IR Receiver Module

@@ -1,4 +1,5 @@
 from wsgi_fw.constants import HTTP_404_PAGE
+from wsgi_fw.exceptions import NoTemplate
 from wsgi_fw.requests import RequestHandler
 from wsgi_fw.utils import check_view, render
 
@@ -13,8 +14,11 @@ class FrontController:
         for page in self.pages:
             if check_view(page, request.path):
                 start_response('200 OK', [('Content-Type', 'text/html; charset=utf-8')])
-                page_content = render(page.view.template,
-                                      page.view.content) if page.view.content else page.view.template
+                if 'template' in page.view.__class__.__dict__:
+                    page_content = render(page.view.template,
+                                          page.view.content) if page.view.content else page.view.template
+                else:
+                    raise NoTemplate()
                 page.view.request = request
                 page.view.get_request()
 
@@ -32,7 +36,11 @@ class PageController:
     def __call__(self, environ, start_response):
         if check_view(self.page, environ['PATH_INFO']):
             start_response('200 OK', [('Content-Type', 'text/html; charset=utf-8')])
-            page_content = self.page.view.template
+            if self.page.view.__class__.__dict__.has_key['template']:
+                page_content = render(self.page.view.template,
+                                      self.page.view.content) if self.page.view.content else self.page.view.template
+            else:
+                raise NoTemplate()
 
             return [page_content.encode()]
         else:

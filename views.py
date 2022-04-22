@@ -1,13 +1,19 @@
 from wsgi_fw.views import BaseView
 
 
-def post(wsgi_input):
-    print(wsgi_input)
+class HomeView(BaseView):
+    template = 'home.html'
+    content = {'new': ['computers', 'smartphones']}
 
 
-home_view = BaseView('home.html', {'new': ['computers', 'smartphones']})
+class ProductsView(BaseView):
+    template = 'products.html'
+    content = {'products': ['computers', 'smartphones', 'books', 'tables']}
 
-products_view = BaseView('products.html', {'products': ['computers', 'smartphones', 'books', 'tables']})
 
-contacts_view = BaseView('contacts.html', {'contacts': ['Tel.: 0782739275', 'E-Mail: support@example.com']},
-                         post)
+class ContactsView(BaseView):
+    template = 'contacts.html'
+    content = {'contacts': ['Tel.: 0782739275', 'E-Mail: support@example.com']}
+
+    def post(self, wsgi_input):
+        print(wsgi_input)

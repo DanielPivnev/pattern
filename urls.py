@@ -1,8 +1,8 @@
-from views import home_view, contacts_view, products_view
+from views import HomeView, ProductsView, ContactsView
 from wsgi_fw.pages import BasePage
 
 pages = [
-    BasePage('', home_view),
-    BasePage('products/', products_view),
-    BasePage('contacts/', contacts_view)
+    BasePage('', HomeView()),
+    BasePage('products/', ProductsView()),
+    BasePage('contacts/', ContactsView())
 ]
