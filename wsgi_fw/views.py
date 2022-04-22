@@ -1,14 +1,11 @@
-from pprint import pprint
-
-
 class BaseView:
-    content = None
-    request = None
+    def __init__(self):
+        self.request = None
 
     def get_request(self):
-        if self.__class__.request and self.__class__.request.method == 'POST':
-            wsgi_input = self.__class__.request.environ['wsgi.input'].read(
-                int(self.__class__.request.environ['CONTENT_LENGTH']))
+        if self.request and self.request.method == 'POST':
+            wsgi_input = self.request.environ['wsgi.input'].read(
+                int(self.request.environ['CONTENT_LENGTH']))
             self.post(wsgi_input)
 
     def post(self, wsgi_input):
