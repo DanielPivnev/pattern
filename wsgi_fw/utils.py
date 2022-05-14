@@ -2,7 +2,7 @@ from jinja2 import FileSystemLoader
 from jinja2.environment import Environment
 
 
-def render(template_name, content, folder='templates'):
+def render(template_name, content=None, folder='templates'):
     """
     :param folder:
     :param template_name: имя шаблона
@@ -15,7 +15,7 @@ def render(template_name, content, folder='templates'):
     # находим шаблон в окружении
     template = env.get_template(template_name)
 
-    return template.render(**content)
+    return template.render(**content) if content else template.render()
 
 
 def check_view(page, path):

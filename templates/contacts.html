@@ -11,19 +11,19 @@
         <li>{{ contact }}</li>
         {% endfor %}
     </ul>
-    <form action="http://127.0.0.1:8000/contacts" method="post" style="max-width: 40vw">
+    <form action="http://127.0.0.1:8000/contacts" accept-charset="utf-8" method="post" style="max-width: 40vw">
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            <label for="email-addr" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email-addr" name="email-addr" placeholder="name@example.com">
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput2" class="form-label">Theme</label>
-            <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="theme">
+            <label for="theme" class="form-label">Theme</label>
+            <input type="text" class="form-control" id="theme" name="theme" placeholder="theme">
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Text</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <label for="text" class="form-label">Text</label>
+            <textarea class="form-control" id="text" rows="3" name="text" ></textarea>
         </div>
-        <input class="btn btn-primary" type="submit" value="Submit">
+        <button class="btn btn-primary" type="submit">Send</button>
     </form>
 {% endblock %}
