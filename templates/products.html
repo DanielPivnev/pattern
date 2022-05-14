@@ -10,7 +10,7 @@
         <h3>{{ category.name }}</h3>
         <ul>
             {% for course in category.courses %}
-                <li>{{ course.name }} | {{ course.c_type }} | {{ course.price }}</li>
+                <li>{{ course.name }} | {{ course.c_type }} | {{ course.price }}$</li>
             {% endfor %}
         </ul>
     {% endfor %}
