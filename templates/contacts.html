@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Contacts
+{% endblock %}
+
+{% block content %}
+    <h1>Contacts</h1>
+    <ul>
+        {% for contact in contacts %}
+        <li>{{ contact }}</li>
+        {% endfor %}
+    </ul>
+    <form action="http://127.0.0.1:8000/contacts" method="post" style="max-width: 40vw">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput2" class="form-label">Theme</label>
+            <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="theme">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Text</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+{% endblock %}
