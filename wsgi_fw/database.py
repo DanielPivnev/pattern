@@ -3,7 +3,7 @@ from abc import ABC
 from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, DateTime, Float
 from sqlalchemy.orm import mapper, sessionmaker, scoped_session
 
-from wsgi_fw.meta_classes import Singleton
+from wsgi_fw.singeltons import Singleton
 
 
 class Database(metaclass=Singleton):

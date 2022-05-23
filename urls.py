@@ -1,4 +1,5 @@
-from views import HomeView, ProductsView, ContactsView, AdminsView, AdminsCreateCourseView, AdminsCreateCategoryView
+from views import HomeView, ProductsView, ContactsView, AdminsView, AdminsCreateCourseView, AdminsCreateCategoryView, \
+    RegistrationView, LoginView
 from wsgi_fw.pages import BasePage
 
 pages = [
@@ -7,5 +8,7 @@ pages = [
     BasePage('contacts/', ContactsView()),
     BasePage('admins/', AdminsView()),
     BasePage('admins/create/category/', AdminsCreateCategoryView()),
-    BasePage('admins/create/course/', AdminsCreateCourseView())
+    BasePage('admins/create/course/', AdminsCreateCourseView()),
+    BasePage('registration/', RegistrationView()),
+    BasePage('login/', LoginView())
 ]

@@ -1,4 +1,5 @@
-from models import Categories, Courses
+from models import Categories, Courses, Users, Admins, UsersAtCourses
+from wsgi_fw.constants import STUDENT, ADMIN
 from wsgi_fw.database import Database
 from wsgi_fw.views import BaseView
 
@@ -17,13 +18,20 @@ class ProductsView(BaseView):
         database = Database()
         categories = database.all('categories')
 
-        content = []
+        content, active = [], []
         for category in categories:
             category_courses = database.find('courses', category_id=category.id)
             result = {'name': category.name, 'courses': category_courses}
             content.append(result)
 
-        return {'categories': content}
+        return {'categories': content, 'active': active}
+
+    def post(self, wsgi_dict):
+        if wsgi_dict and self.is_student():
+            database = Database()
+            print(self.get_user_id())
+            new_abo = UsersAtCourses.Meta(wsgi_dict['id'], self.get_user_id())
+            database.create(new_abo)
 
 
 class ContactsView(BaseView):
@@ -38,11 +46,13 @@ class ContactsView(BaseView):
 class AdminsView(BaseView):
     template = 'admins_base.html'
     debug = True
+    login = 'please_login.html'
 
 
 class AdminsCreateCategoryView(BaseView):
     template = 'create_category.html'
     debug = True
+    login = 'please_login.html'
 
     def post(self, wsgi_dict):
         database = Database()
@@ -53,6 +63,7 @@ class AdminsCreateCategoryView(BaseView):
 class AdminsCreateCourseView(BaseView):
     template = 'create_course.html'
     debug = True
+    login = 'please_login.html'
 
     def post(self, wsgi_dict):
         if wsgi_dict:
@@ -66,3 +77,39 @@ class AdminsCreateCourseView(BaseView):
         categories = database.all('categories')
 
         return {'categories': categories}
+
+
+class RegistrationView(BaseView):
+    template = 'registration.html'
+    debug = True
+
+    def post(self, wsgi_dict):
+        if wsgi_dict:
+            database = Database()
+            if not len(database.find(Users.table_name, email=wsgi_dict['email'])) \
+                    and wsgi_dict['password1'] == wsgi_dict['password2']:
+                new_users = Users.Meta(wsgi_dict['email'], wsgi_dict['address'], wsgi_dict['city'],
+                                       wsgi_dict['country'], wsgi_dict['password1'])
+                database.create(new_users)
+
+                self.auth(STUDENT, database.find(Users.table_name, email=wsgi_dict['email'])[0])
+
+
+class LoginView(BaseView):
+    template = 'login.html'
+    debug = True
+
+    def post(self, wsgi_dict):
+        print(wsgi_dict)
+        if wsgi_dict:
+            database = Database()
+            user, admin = database.find(Users.table_name, email=wsgi_dict['email']), database.find(Admins.table_name,
+                                                                                                   email=wsgi_dict[
+                                                                                                       'email'])
+
+            if len(user) and user[0].password == wsgi_dict['password']:
+                self.auth(STUDENT, user[0])
+            elif len(admin) and admin[0].password == wsgi_dict['password']:
+                self.auth(ADMIN, user[0])
+
+

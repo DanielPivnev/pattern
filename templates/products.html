@@ -1,17 +1,25 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Products
+Products
 {% endblock %}
 
 {% block content %}
+<div class="container">
     <h1>Products</h1>
     {% for category in categories %}
-        <h3>{{ category.name }}</h3>
-        <ul>
-            {% for course in category.courses %}
-                <li>{{ course.name }} | {{ course.c_type }} | {{ course.price }}$</li>
-            {% endfor %}
-        </ul>
+    <h3>{{ category.name }}</h3>
+    <ul>
+        {% for course in category.courses %}
+        <form method="post" action="#" accept-charset="UTF-8">
+            <div class="bg-light" style="display:flex; justify-content:space-between; flex-wrap: nowrap; margin-bottom: 15px;">
+                {{ course.name }} | {{ course.c_type }} | {{ course.price }}$
+                <input class="invisible" name="id" value="{{ course.id }}">
+                <button class="btn-success btn" type="submit">Buy</button>
+            </div>
+        </form>
+        {% endfor %}
+    </ul>
     {% endfor %}
+</div>
 {% endblock %}

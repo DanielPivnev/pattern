@@ -1,9 +1,19 @@
+import webbrowser
 from time import time
+from requests import Session
+
+from wsgi_fw.database import Database
+from wsgi_fw.views import BaseView
 
 
 def debug(func):
     def wrapper(*args):
-        if 'debug' in type(args[1].view).__dict__ and args[1].view.debug:
+        print(args)
+        view = None
+        for arg in args:
+            if isinstance(arg, BaseView):
+                view = arg
+        if 'debug' in type(view).__dict__ and view.debug:
             start = time()
             response = func(*args)
             end = time()
@@ -16,3 +26,6 @@ def debug(func):
         else:
             return func(*args)
     return wrapper
+
+
+

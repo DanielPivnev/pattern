@@ -30,3 +30,50 @@ class Categories(BaseModel):
         def __init__(self, name):
             self.id = None
             self.name = name
+
+
+class UsersAtCourses(BaseModel):
+    table_name = 'users_at_courses'
+    _course_id_ = Integer
+    _user_id_ = Integer
+
+    class Meta:
+        def __init__(self, course_id, user_id):
+            self.id = None
+            self.course_id = course_id
+            self.user_id = user_id
+
+
+class Users(BaseModel):
+    table_name = 'users'
+    _email_ = String
+    _address_ = String
+    _city_ = String
+    _country_ = String
+    _password_ = String
+
+    class Meta:
+        def __init__(self, email, address, city, country, password):
+            self.id = None
+            self.email = email
+            self.address = address
+            self.city = city
+            self.country = country
+            self.password = password
+
+
+class Admins(BaseModel):
+    table_name = 'admins'
+    _email_ = String
+    _full_name_ = String
+    _password__ = String
+    _wage_ = Float
+    _password_ = String
+
+    class Meta:
+        def __init__(self, email, full_name, wage, password):
+            self.id = None
+            self.email = email
+            self.full_name = full_name
+            self.wage = wage
+            self.password = password
