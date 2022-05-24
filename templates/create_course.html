@@ -1,0 +1,77 @@
+{% extends 'admins_base.html' %}
+
+{% block title %}
+    Admin | Create Course
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="container">
+            <div class="py-5 text-center" >
+                <h2>Create Course</h2>
+            </div>
+
+            <hr>
+             <div class="col-md-7 col-lg-auto">
+                    <h4 class="mb-3">Info</h4>
+                    <form class="needs-validation" action="#" method="post" accept-charset="UTF-8" novalidate>
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="firstName" class="form-label">Teacher's first name</label>
+                                <input type="text" name="fn" class="form-control" id="firstName" placeholder="" value=""
+                                       required>
+                                <div class="invalid-feedback">
+                                    Valid first name is required.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="lastName" class="form-label">Teacher's last name</label>
+                                <input type="text" name="ln" class="form-control" id="lastName" placeholder="" value=""
+                                       required>
+                                <div class="invalid-feedback">
+                                    Valid last name is required.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="name" class="form-label">Course name</label>
+                                <input type="text" name="cn" class="form-control" id="name" placeholder="">
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="country" class="form-label">Category</label>
+                                <select class="form-select" name="category" id="country" required>
+                                    {% for category in categories %}
+                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a valid country.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="kind" class="form-label">Type</label>
+                                <select class="form-select" name="type" id="kind" required>
+                                    <option value="live">Live</option>
+                                    <option value="...">...</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a valid country.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="price" class="form-label">Price</label>
+                                <input type="number" name="price" class="form-control" id="price" placeholder="">
+                            </div>
+                        </div>
+                        <br>
+                        <button class="w-100 btn btn-success btn-lg" type="submit">Create</button>
+                    </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
