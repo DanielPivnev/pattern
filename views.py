@@ -113,3 +113,11 @@ class LoginView(BaseView):
                 self.auth(ADMIN, user[0])
 
 
+class LogoutView(BaseView):
+    template = 'logout.html'
+    debug = True
+
+    def post(self, wsgi_dict):
+        print(wsgi_dict)
+        if wsgi_dict and wsgi_dict['action'] == 'logout':
+            self.logout()
