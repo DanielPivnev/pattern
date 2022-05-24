@@ -41,8 +41,13 @@ class FrontController(Controller):
         for page in self.pages:
             page.view.set_controller(self)
 
-    def auth(self, state):
+    def auth(self, state, u_id):
         self.authorisation.set_state(state)
+        self.notify(u_id)
+
+    def logout(self):
+        self.authorisation.set_state(None)
+        self.notify(None)
 
     @debug
     def process_view(self, page, start_response, request):

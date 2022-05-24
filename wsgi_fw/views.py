@@ -35,9 +35,11 @@ class BaseView(ViewObserver):
         self.controller = controller
 
     def auth(self, state, user):
-        self.controller.auth(state)
-        self.controller.notify(user.id)
+        self.controller.auth(state, user.id)
         self.user_id = user.id
+
+    def logout(self):
+        self.controller.logout()
 
     def is_student(self):
         if self.is_auth():
